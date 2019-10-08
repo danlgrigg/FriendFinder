@@ -31,7 +31,6 @@
         </div>
       </div>
 
-      <div>Form</div>
       <div class="container">
         <h2>Survey Questions</h2>
         <hr />
@@ -94,7 +93,7 @@
         </select>
 
         <h3><strong>Question 5</strong></h3>
-        <h4>You like to listen to your own thoughts. </h4>
+        <h4>You like to listen to your own thoughts.</h4>
         <select class="chosen-select" id="q5">
           <option value=""></option>
           <option value="1">1 (Strongly Disagree)</option>
@@ -143,7 +142,7 @@
 
         <h3><strong>Question 9</strong></h3>
         <h4>
-          You are a social butterfly. 
+          You are a social butterfly.
         </h4>
         <select class="chosen-select" id="q9">
           <option value=""></option>
@@ -224,61 +223,60 @@
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-       
-
-
-      //Run function on user submit to add user input into database 
+      //Run function on user submit to add user input into database
       $("#submit").on("click", function(event) {
         event.preventDefault();
         var q1 = $("#q1")
-            .val()
-            .trim();
-       var q2 = $("#q2")
-            .val()
-            .trim();
-       var q3 = $("#q3")
-            .val()
-            .trim();
-       var q4 = $("#q4")
-            .val()
-            .trim();
-       var q5 = $("#q5")
-            .val()
-            .trim();
-       var q6 = $("#q6")
-            .val()
-            .trim();
-       var q7 = $("#q7")
-            .val()
-            .trim();
-       var q8 = $("#q8")
-            .val()
-            .trim();
-       var q9 = $("#q9")
-            .val()
-            .trim();
-       var q10 = $("#q10")
-            .val()
-            .trim();
-      
+          .val()
+          .trim();
+        var q2 = $("#q2")
+          .val()
+          .trim();
+        var q3 = $("#q3")
+          .val()
+          .trim();
+        var q4 = $("#q4")
+          .val()
+          .trim();
+        var q5 = $("#q5")
+          .val()
+          .trim();
+        var q6 = $("#q6")
+          .val()
+          .trim();
+        var q7 = $("#q7")
+          .val()
+          .trim();
+        var q8 = $("#q8")
+          .val()
+          .trim();
+        var q9 = $("#q9")
+          .val()
+          .trim();
+        var q10 = $("#q10")
+          .val()
+          .trim();
+
         //Store user input into variable
         var userInput = {
-          name: $("#name").val().trim(),
-          photo: $("#photo").val().trim(),
-          scores: [],
+          name: $("#name")
+            .val()
+            .trim(),
+          photo: $("#photo")
+            .val()
+            .trim(),
+          scores: []
         };
-        
         userInput.scores.push(q1, q2, q2, q3, q4, q5, q6, q7, q8, q9, q10);
         console.log(userInput);
         //Post request to display best friend match to user
-        $.post('/api/friends', userInput)
-      		.done(function(data) {
-      			// Set the name and image values of friend match
-      			$('#match-name').text(data.matchName);
-		    	$("#match-image").attr("src", data.matchImage);
-		    	// Pop open the modal dialog
-      			$('#results-modal').modal('open');
-      		});
+        $.post("/api/friends", userInput, function(data) {
+          // Set the name and image values of friend match
+          $("#match-name").text(data.name);
+          $("#match-image").attr("src", data.photo);
+          // Pop open the modal dialog
+          $("#results-modal").modal("toggle");
+        });
       });
     </script>
   </body>

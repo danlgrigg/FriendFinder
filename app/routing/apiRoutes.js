@@ -9,8 +9,8 @@ module.exports = function(app) {
   app.post("/api/friends", function(req, res) {
     var newFriend = req.body;
     console.log(newFriend);
-    friendsData.push(newFriend);
-    res.json(newFriend);
+    // friendsData.push(newFriend);
+    // res.json(newFriend);
     //New variable to store the best friend match so far as we loop through the array of friends
     var bestFriend = {
       name: "",
@@ -25,17 +25,20 @@ module.exports = function(app) {
       for (let j = 0; j < currentFriend.scores.length; j++) {
         //Store each survey score  in a new variable to then determine the difference and add them together
         var currentFriendScore = parseInt(currentFriend.scores[j]);
-        var currentUserScore = parseInt(newFriend.scores[j]);
+        var newFriendScore = parseInt(newFriend.scores[j]);
         // console.log(currentUserScore, currentFriendScore);
-        scoreDiff += Math.abs(currentFriendScore - currentUserScore);
+        scoreDiff += Math.abs(currentFriendScore - newFriendScore);
         console.log(scoreDiff);
       }//Set condition to find the lower of current friend score difference and the current best friend score difference and push to the best friend object
       if (scoreDiff < bestFriend.totalDiff){
-        bestFriend.push(currentFriend);
-        console.log(bestFriend);
+        bestFriend.name = currentFriend.name;
+        bestFriend.photo = currentFriend.photo
+        bestFriend.totalDiff = scoreDiff;
+        
       }
     }
     
     friendsData.push(newFriend);
+    res.json(bestFriend);
   });
 };
