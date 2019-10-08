@@ -46,7 +46,7 @@
         <hr />
 
         <h3><strong>Question 1</strong></h3>
-        <h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
+        <h4>You like the outdoors.</h4>
         <select class="chosen-select" id="q1">
           <option value=""></option>
           <option value="1">1 (Strongly Disagree)</option>
@@ -58,8 +58,7 @@
 
         <h3><strong>Question 2</strong></h3>
         <h4>
-          Generally speaking, you rely more on your experience than your
-          imagination.
+          You are close to your family.
         </h4>
         <select class="chosen-select" id="q2">
           <option value=""></option>
@@ -72,8 +71,7 @@
 
         <h3><strong>Question 3</strong></h3>
         <h4>
-          You find it easy to stay relaxed and focused even when there is some
-          pressure.
+          You are spiritutal.
         </h4>
         <select class="chosen-select" id="q3">
           <option value=""></option>
@@ -85,7 +83,7 @@
         </select>
 
         <h3><strong>Question 4</strong></h3>
-        <h4>You rarely do something just out of sheer curiosity.</h4>
+        <h4>You have a strong sense of adventure.</h4>
         <select class="chosen-select" id="q4">
           <option value=""></option>
           <option value="1">1 (Strongly Disagree)</option>
@@ -96,7 +94,7 @@
         </select>
 
         <h3><strong>Question 5</strong></h3>
-        <h4>People can rarely upset you.</h4>
+        <h4>You like to listen to your own thoughts. </h4>
         <select class="chosen-select" id="q5">
           <option value=""></option>
           <option value="1">1 (Strongly Disagree)</option>
@@ -108,7 +106,7 @@
 
         <h3><strong>Question 6</strong></h3>
         <h4>
-          It is often difficult for you to relate to other people’s feelings.
+          You are a foodie.
         </h4>
         <select class="chosen-select" id="q6">
           <option value=""></option>
@@ -121,8 +119,7 @@
 
         <h3><strong>Question 7</strong></h3>
         <h4>
-          In a discussion, truth should be more important than people’s
-          sensitivities.
+          You like to exercise
         </h4>
         <select class="chosen-select" id="q7">
           <option value=""></option>
@@ -134,7 +131,7 @@
         </select>
 
         <h3><strong>Question 8</strong></h3>
-        <h4>You rarely get carried away by fantasies and ideas.</h4>
+        <h4>You like puzzles</h4>
         <select class="chosen-select" id="q8">
           <option value=""></option>
           <option value="1">1 (Strongly Disagree)</option>
@@ -146,8 +143,7 @@
 
         <h3><strong>Question 9</strong></h3>
         <h4>
-          You think that everyone’s views should be respected regardless of
-          whether they are supported by facts or not.
+          You are a social butterfly. 
         </h4>
         <select class="chosen-select" id="q9">
           <option value=""></option>
@@ -160,7 +156,7 @@
 
         <h3><strong>Question 10</strong></h3>
         <h4>
-          You feel more energetic after spending time with a group of people.
+          You are one with the universe.
         </h4>
         <select class="chosen-select" id="q10">
           <option value=""></option>
@@ -204,11 +200,7 @@
             </div>
             <div class="modal-body">
               <h2 id="match-name"></h2>
-              <!-- <img
-                id="match-img"
-                src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg"
-                alt=""
-              /> -->
+              <a id="match-photo"></a>
             </div>
             <div class="modal-footer">
               <button
@@ -232,34 +224,66 @@
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-    
-      // In this code below we create the Front-end JavaScript which "POSTS" our form data to our express server.
-      // In essence, when the user hits submit, jQuery grabs all of the fields then sends a post request to our api
-      // Our api recognizes the route (/api/tables)... and then runs the associated code (found in api-routes.js).
-      // In this case the associated code "saves" the data to the table-data.js file or waitinglist-data.js file
-      function getAnswers(){
-        var results = [];
-        var q1 = $("#q1").val().trim(); 
-        var q2 = $("#q2").val().trim(); 
-        var q3 = $("#q3").val().trim(); 
-        var q4 = $("#q4").val().trim(); 
-        var q5 = $("#q5").val().trim(); 
-        var q6 = $("#q6").val().trim(); 
-        var q7 = $("#q7").val().trim(); 
-        var q8 = $("#q8").val().trim(); 
-        var q9 = $("#q9").val().trim(); 
-        var q10 = $("#q10").val(); 
-        results.push(q1,q2,q2,q3,q4,q5,q6,q7,q8,q9,q10);
-        return results;
-      }
+       
+
+
+      //Run function on submit to add user input into database and compare values to existing friends
       $("#submit").on("click", function(event) {
         event.preventDefault();
-        var answers = getAnswers();
-        $.post("/api/friends", {answers:answers}, function (data){
-          
-        })
-      });
+        var q1 = $("#q1")
+            .val()
+            .trim();
+       var q2 = $("#q2")
+            .val()
+            .trim();
+       var q3 = $("#q3")
+            .val()
+            .trim();
+       var q4 = $("#q4")
+            .val()
+            .trim();
+       var q5 = $("#q5")
+            .val()
+            .trim();
+       var q6 = $("#q6")
+            .val()
+            .trim();
+       var q7 = $("#q7")
+            .val()
+            .trim();
+       var q8 = $("#q8")
+            .val()
+            .trim();
+       var q9 = $("#q9")
+            .val()
+            .trim();
+      var q10 = $("#q10")
+            .val()
+            .trim();
+      
+      
+        var userInput = {
+          name: $("#name").val().trim(),
+          photo: $("#photo").val().trim(),
+          scores: [],
+        };
+        
+        userInput.scores.push(q1, q2, q2, q3, q4, q5, q6, q7, q8, q9, q10);
+        console.log(userInput);
 
+        $.post("/api/friends", userInput, function(data) {
+          //Send match info to the modal
+        });
+        $.post('/api/friends', userInput)
+      		.done(function(data) {
+      			// console.log('response = ' + JSON.stringify(data));
+      			// Set the name and image values of friend match
+      			$('#match-name').text(data.matchName);
+		    	$("#match-image").attr("src", data.matchImage);
+		    	// Pop open the modal dialog
+      			$('#modal1').modal('open');
+      		});
+      });
     </script>
   </body>
 </html>
