@@ -227,7 +227,7 @@
        
 
 
-      //Run function on submit to add user input into database and compare values to existing friends
+      //Run function on user submit to add user input into database 
       $("#submit").on("click", function(event) {
         event.preventDefault();
         var q1 = $("#q1")
@@ -257,11 +257,11 @@
        var q9 = $("#q9")
             .val()
             .trim();
-      var q10 = $("#q10")
+       var q10 = $("#q10")
             .val()
             .trim();
       
-      
+        //Store user input into variable
         var userInput = {
           name: $("#name").val().trim(),
           photo: $("#photo").val().trim(),
@@ -270,18 +270,14 @@
         
         userInput.scores.push(q1, q2, q2, q3, q4, q5, q6, q7, q8, q9, q10);
         console.log(userInput);
-
-        $.post("/api/friends", userInput, function(data) {
-          //Send match info to the modal
-        });
+        //Post request to display best friend match to user
         $.post('/api/friends', userInput)
       		.done(function(data) {
-      			// console.log('response = ' + JSON.stringify(data));
       			// Set the name and image values of friend match
       			$('#match-name').text(data.matchName);
 		    	$("#match-image").attr("src", data.matchImage);
 		    	// Pop open the modal dialog
-      			$('#modal1').modal('open');
+      			$('#results-modal').modal('open');
       		});
       });
     </script>
